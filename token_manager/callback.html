@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <div id="message"></div>
+    <div><a href="index.html">Go Back To Home Page</a></div>
+    <script src="js/oidc-token-manager.js"></script>
+    <script>
+        var config = {
+            client_id: "implicitclient",
+            authority: "https://localhost:44333/core",
+        };
+        var mgr = new OidcTokenManager(config);
+
+        mgr.processTokenCallbackAsync().then(function () {
+            console.log("Successfully Obtained Token", mgr.access_token);
+            window.location.replace("/index.html");
+        }, function (error) {
+            console.error("Problem Getting Token : " + (error.message || error));
+        });
+    </script>
+</body>
+
+</html>
